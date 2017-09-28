@@ -235,12 +235,7 @@ class SQLiteProvider extends SettingProvider {
 		val = typeof val !== 'undefined' ? JSON.stringify(val) : 'undefined';
 		this.client.shard.broadcastEval(`
 			if(this.shard.id !== ${this.client.shard.id} && this.provider && this.provider.settings) {
-				let global = this.provider.settings.get('global');
-				if(!global) {
-					global = {};
-					this.provider.settings.set('global', global);
-				}
-				global[${key}] = ${val};
+				this.provider.settings.global[${key}] = ${val};
 			}
 		`);
 	}

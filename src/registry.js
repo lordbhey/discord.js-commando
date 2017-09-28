@@ -246,8 +246,7 @@ class CommandRegistry {
 	 */
 	registerDefaultGroups() {
 		return this.registerGroups([
-			['commands', 'Commands', true],
-			['util', 'Utility']
+			['util', 'Genel']
 		]);
 	}
 
@@ -263,18 +262,18 @@ class CommandRegistry {
 	 * @return {CommandRegistry}
 	 */
 	registerDefaultCommands({ help = true, prefix = true, ping = true, eval_ = true, commandState = true } = {}) {
-		if(help) this.registerCommand(require('./commands/util/help'));
-		if(prefix) this.registerCommand(require('./commands/util/prefix'));
+		if(help) this.registerCommand(require('./commands/util/yardım'));
+		if(prefix) this.registerCommand(require('./commands/ayarlar/prefix'));
 		if(ping) this.registerCommand(require('./commands/util/ping'));
-		if(eval_) this.registerCommand(require('./commands/util/eval'));
+		if(eval_) this.registerCommand(require('./commands/admin/eval'));
 		if(commandState) {
 			this.registerCommands([
-				require('./commands/commands/groups'),
-				require('./commands/commands/enable'),
-				require('./commands/commands/disable'),
-				require('./commands/commands/reload'),
-				require('./commands/commands/load'),
-				require('./commands/commands/unload')
+				require('./commands/admin/gruplar'),
+				require('./commands/ayarlar/aktifleştir'),
+				require('./commands/ayarlar/devre-dışı'),
+				require('./commands/admin/reload'),
+				require('./commands/admin/load'),
+				require('./commands/admin/unload')
 			]);
 		}
 		return this;

@@ -122,7 +122,7 @@ class CommandDispatcher {
 			if(!inhibited) {
 				if(cmdMsg.command) {
 					if(!cmdMsg.command.isEnabledIn(message.guild)) {
-						responses = await cmdMsg.reply(`The \`${cmdMsg.command.name}\` command is disabled.`);
+						responses = await cmdMsg.reply(`\`${cmdMsg.command.name}\` komutu devre dışı bırakılmış.`);
 					} else if(!oldMessage || typeof oldCmdMsg !== 'undefined') {
 						responses = await cmdMsg.run();
 						if(typeof responses === 'undefined') responses = null; // eslint-disable-line max-depth
@@ -224,7 +224,7 @@ class CommandDispatcher {
 	 */
 	parseMessage(message) {
 		// Find the command to run by patterns
-		for(const command of this.registry.commands.values()) {
+		for(const command of this.registry.commands) {
 			if(!command.patterns) continue;
 			for(const pattern of command.patterns) {
 				const matches = pattern.exec(message.content);
