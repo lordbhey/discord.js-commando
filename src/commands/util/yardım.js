@@ -95,7 +95,8 @@ module.exports = class HelpCommand extends Command {
 				.setTitle(grp.name)
 				/*.setDescription('test');*/
 				.addField('Komutlar', 'ehe');
-				groups.map(grp=> helpbed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
+				//groups.map(grp=> helpbed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
+				groups.map(grp=> grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description).join('\n')));
 				
 				messages.push(await msg.author.send({embed: helpbed}));
 				
