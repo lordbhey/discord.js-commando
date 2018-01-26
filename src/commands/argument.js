@@ -144,15 +144,22 @@ class Argument {
 					answers
 				};
 			}
+			
+		        const randomColor = parseInt(`0x${(Math.random() * 0xFFFFFF << 0).toString(16)}`);
+	  	        const Discord = require('discord.js');
+		        
+			const embed = new Discord.RichEmbed()
+			.setColor(randomColor)
+			.setTitle("Komut Girişi")
+			.setDescription(stripIndents`
+			${!value ? this.prompt : valid ? valid : `Geçersiz bir ${this.label} yazdınız. Lütfen tekrar deneyin.`}
+			${oneLine`
+			`}
+			`)
+			.setFooter(`Komutu iptal etmek için "iptal" yazın. ${wait ? ` Otomatik olarak ${this.wait} saniye içinde iptal edilecektir.` : ''}`);
 
 			// Prompt the user for a new value
-			prompts.push(await msg.reply(stripIndents`
-				${!value ? this.prompt : valid ? valid : `Geçersiz ${this.label}. Lütfen tekrar dene.`}
-				${oneLine`
-					Komutu iptal etmek için: \`iptal\`
-					${wait ? `Komut otomatik olarak ${this.wait} saniye içinde iptal edilecektir.` : ''}
-				`}
-			`));
+			prompts.push(await msg.channel.send({embed}));
 
 			// Get the user's response
 			const responses = await msg.channel.awaitMessages(msg2 => msg2.author.id === msg.author.id, {
