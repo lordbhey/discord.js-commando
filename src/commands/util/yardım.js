@@ -93,7 +93,7 @@ module.exports = class HelpCommand extends Command {
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
 				.setTitle(grp.name)
-				/*.setDescription('test');*/
+				.setDescription('test')
 				.addField('Komutlar', 'ehe');
 				//groups.map(grp=> helpbed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
 				groups.map(grp=> grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description).join('\n')));
