@@ -89,9 +89,15 @@ module.exports = class HelpCommand extends Command {
 						`).join('\n\n')
 					}
 				`, { split: true }));
-				if(msg.channel.type !== 'dm') messages.push(await msg.reply('Özel mesajlarını kontrol et. :postbox:'));
-			} catch(err) {
+				if(msg.channel.type !== 'dm') {
+					const dmbed = new Discord.RichEmbed()
+					.setColor('RANDOM')
+					.setTitle('Özel mesajlarını kontrol et.')
+					.setDescription('Komutları özel mesaj olarak yolladım.');
 
+					messages.push(await msg.channel.send({embed: dmbed}));
+				}
+			} catch(err) {
 				const errbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
 				.setTitle('Hata')
