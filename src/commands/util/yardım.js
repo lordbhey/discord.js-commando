@@ -1,6 +1,7 @@
 const { stripIndents, oneLine } = require('common-tags');
 const Command = require('../base');
 const disambiguation = require('../../util').disambiguation;
+const Discord = require('discord.js');
 
 module.exports = class HelpCommand extends Command {
 	constructor(client) {
@@ -70,14 +71,14 @@ module.exports = class HelpCommand extends Command {
 			const messages = [];
 			try {
 				messages.push(await msg.direct(stripIndents`
-					${oneLine`
+					/** ${oneLine`
 						${msg.guild || 'Sunucu ismi bulunamadı!'} sunucusunda komut kullanmak için aşağıdaki örneği inceleyin.
 						Örnek: ${Command.usage('komut', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 						Örnek: ${Command.usage('prefix', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 					`}
 					Özel mesajda komut kullanırken, ön-ek (prefix) kullanmanıza gerek yok! Örnek: ${Command.usage('komut', null, null)}
 
-					__**${showAll ? 'Tüm komutlar' : `${msg.guild + ' sunucusunda' || 'bu Özel Mesaj içinde'} kullanılabilir komutlar:`}**__
+					__**${showAll ? 'Tüm komutlar' : `${msg.guild + ' sunucusunda' || 'bu Özel Mesaj içinde'} kullanılabilir komutlar:`}**__ */
 
 					${(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => cmd.isUsable(msg))))
 						.map(grp => stripIndents`
@@ -90,7 +91,13 @@ module.exports = class HelpCommand extends Command {
 				`, { split: true }));
 				if(msg.channel.type !== 'dm') messages.push(await msg.reply('Özel mesajlarını kontrol et. :postbox:'));
 			} catch(err) {
-				messages.push(await msg.reply('Komutları özel mesaj olarak sana gönderemiyorum. Sanırım özel mesajların kapalı.'));
+
+				const errbed = new Discord.RichEmbed()
+				.setColor('RANDOM')
+				.setTitle('Hata')
+				.setDescription('Komutları özel mesaj olarak sana gönderemiyorum. Sanırım özel mesajların kapalı.');
+
+				messages.push(await msg.channel.send({embed: errbed}));
 			}
 			return messages;
 		}
