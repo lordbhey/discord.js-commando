@@ -92,7 +92,8 @@ module.exports = class HelpCommand extends Command {
 				
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
-				.setDescription(stripIndents`
+				.setDescription('test');
+				/** .setDescription(stripIndents`
                     			${(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => cmd.isUsable(msg))))
                         			.map(grp => stripIndents`
                             				__${grp.name}__
@@ -102,7 +103,7 @@ module.exports = class HelpCommand extends Command {
                         			`).join('\n\n')
                     			}
                 		`, { split: true }
-				);
+				); */
 
 				messages.push(await msg.author.send({embed: helpbed}));
 				
