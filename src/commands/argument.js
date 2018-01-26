@@ -145,11 +145,10 @@ class Argument {
 				};
 			}
 			
-		        const randomColor = parseInt(`0x${(Math.random() * 0xFFFFFF << 0).toString(16)}`);
 	  	        const Discord = require('discord.js');
 		        
 			const embed = new Discord.RichEmbed()
-			.setColor(randomColor)
+			.setColor('RANDOM')
 			.setTitle("Komut Girişi")
 			.setDescription(stripIndents`
 			${!value ? this.prompt : valid ? valid : `Geçersiz bir ${this.label} yazdınız. Lütfen tekrar deneyin.`}
