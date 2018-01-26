@@ -70,15 +70,15 @@ module.exports = class HelpCommand extends Command {
 		} else {
 			const messages = [];
 			try {
-				messages.push(await msg.direct(stripIndents`
-					/** ${oneLine`
+				/** messages.push(await msg.direct(stripIndents`
+					${oneLine`
 						${msg.guild || 'Sunucu ismi bulunamadı!'} sunucusunda komut kullanmak için aşağıdaki örneği inceleyin.
 						Örnek: ${Command.usage('komut', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 						Örnek: ${Command.usage('prefix', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 					`}
 					Özel mesajda komut kullanırken, ön-ek (prefix) kullanmanıza gerek yok! Örnek: ${Command.usage('komut', null, null)}
 
-					__**${showAll ? 'Tüm komutlar' : `${msg.guild + ' sunucusunda' || 'bu Özel Mesaj içinde'} kullanılabilir komutlar:`}**__ */
+					__**${showAll ? 'Tüm komutlar' : `${msg.guild + ' sunucusunda' || 'bu Özel Mesaj içinde'} kullanılabilir komutlar:`}**__
 
 					${(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => cmd.isUsable(msg))))
 						.map(grp => stripIndents`
@@ -88,7 +88,24 @@ module.exports = class HelpCommand extends Command {
 							}
 						`).join('\n\n')
 					}
-				`, { split: true }));
+				`, { split: true })); */
+				
+				const helpbed = new Discord.RichEmbed()
+				.setColor('RANDOM')
+				.setDescription(stripIndents`
+                    			${(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => cmd.isUsable(msg))))
+                        			.map(grp => stripIndents`
+                            				__${grp.name}__
+                            				${(showAll ? grp.commands : grp.commands.filter(cmd => cmd.isUsable(msg)))
+                                				.map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')
+                            				}
+                        			`).join('\n\n')
+                    			}
+                		`, { split: true }
+				);
+
+				messages.push(await msg.channel.send({embed: helpbed}));
+				
 				if(msg.channel.type !== 'dm') {
 					const dmbed = new Discord.RichEmbed()
 					.setColor('RANDOM')
