@@ -89,20 +89,14 @@ module.exports = class HelpCommand extends Command {
 						`).join('\n\n')
 					}
 				`, { split: true })); */
-                    	(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => cmd.isUsable(msg))))
-                        	.map(grp => {
 				
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
 				.setTitle(grp.name)
 				/*.setDescription('test');*/
+				.addField('Komutlar', 'ehe');
+				groups.map(grp=> embed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
 				
-				.setDescription(stripIndents`
-					${(showAll ? grp.commands : grp.commands.filter(cmd => cmd.isUsable(msg)))
-                                		.map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')
-                            		}
-                		`);
-			});
 				messages.push(await msg.author.send({embed: helpbed}));
 				
 				if(msg.channel.type !== 'dm') {
