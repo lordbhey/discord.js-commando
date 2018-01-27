@@ -92,14 +92,13 @@ module.exports = class HelpCommand extends Command {
 				
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM');
-				groups.map(grp => {
-					grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description))
-				})
-				//.setDescription(groups.map(grp=> grp.commands.map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')));
-				//groups.map(grp=> helpbed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
-				//groups.map(grp=> grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description).join('\n')));
-				
-				messages.push(await msg.channel.send({embed: helpbed}));
+				groups.forEach(group =>
+                    			helpbed.addField(`**${group.name}**`,
+                        			group.commands
+                            				.map(command => `**${command.name}**: ${command.description}`)
+                            					.join('\n')));
+	
+				messages.push(await msg.direct({embed: helpbed}));
 				
 				if(msg.channel.type !== 'dm') {
 					const dmbed = new Discord.RichEmbed()
