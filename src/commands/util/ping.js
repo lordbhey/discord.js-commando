@@ -22,11 +22,10 @@ module.exports = class PingCommand extends Command {
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
 			.setDescription(oneLine`
-				${msg.channel.type !== 'dm' ? `${msg.author},` : ''}
 				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
 			`);
-			return pingMsg.edit({ embed });
+			return pingMsg.edit(msg.channel.type !== 'dm' ? `${msg.author},` : '', { embed });
 		} else {
 			await msg.edit('Hesaplanıyor...');
 			const embed = new Discord.RichEmbed()
