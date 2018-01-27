@@ -1,5 +1,6 @@
 const stripIndents = require('common-tags').stripIndents;
 const Command = require('../base');
+const Discord = require('discord.js');
 
 module.exports = class ListGroupsCommand extends Command {
 	constructor(client) {
@@ -19,11 +20,15 @@ module.exports = class ListGroupsCommand extends Command {
 	}
 
 	async run(msg) {
-		return msg.reply(stripIndents`
-			__**Gruplar**__
+		const embed = new Discord.RichEmbed()
+		.setColor('RANDOM')
+		.setTitle('__**Gruplar**__')
+		.setDescription(stripIndents`
 			${this.client.registry.groups.map(grp =>
 				`**${grp.name}:** ${grp.isEnabledIn(msg.guild) ? 'Devrede' : 'Devre dışı'}`
 			).join('\n')}
 		`);
+		
+		return msg.channel.send(msg.author, {embed});
 	}
 };
