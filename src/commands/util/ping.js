@@ -10,7 +10,7 @@ module.exports = class PingCommand extends Command {
 			memberName: 'ping',
 			description: 'Botun pingini gösterir.',
 			throttling: {
-				usages: 5,
+				usages: 1,
 				duration: 10
 			}
 		});
@@ -24,7 +24,10 @@ module.exports = class PingCommand extends Command {
 			.setDescription(oneLine`
 				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
-			`);
+			`)
+			.setFooter(`${msg.author.tag} tarafından istendi`, this.client.user.avatarURL)
+			.setTimestamp();
+			
 			return pingMsg.edit(msg.channel.type !== 'dm' ? `${msg.author},` : '', { embed });
 		} else {
 			await msg.edit('Hesaplanıyor...');
@@ -33,7 +36,10 @@ module.exports = class PingCommand extends Command {
 			.setDescription(oneLine`
 				:ping_pong: Mesaj gecikmesi: ${msg.editedTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
-			`);
+			`)
+			.setFooter(`${msg.author.tag} tarafından istendi`, this.client.user.avatarURL)
+			.setTimestamp();
+			
 			return msg.edit({ embed });
 		}
 	}
