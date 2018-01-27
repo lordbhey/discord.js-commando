@@ -21,26 +21,20 @@ module.exports = class PingCommand extends Command {
 			const pingMsg = await msg.reply('Hesaplanıyor...');
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
-			.setTitle(':ping_pong:')
 			.setDescription(oneLine`
-				Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp - 100}ms.
+				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
-			`)
-			.setFooter(`${msg.author.tag} tarafından istendi`, this.client.user.avatarURL)
-			.setTimestamp();
+			`);
 			
 			return pingMsg.edit(msg.channel.type !== 'dm' ? `${msg.author},` : '', { embed });
 		} else {
 			await msg.edit('Hesaplanıyor...');
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
-			.setTitle(':ping_pong:')
 			.setDescription(oneLine`
 				:ping_pong: Mesaj gecikmesi: ${msg.editedTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
-			`)
-			.setFooter(`${msg.author.tag} tarafından istendi`, this.client.user.avatarURL)
-			.setTimestamp();
+			`);
 			
 			return msg.edit({ embed });
 		}
