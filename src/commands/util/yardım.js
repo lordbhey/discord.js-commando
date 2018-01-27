@@ -91,8 +91,11 @@ module.exports = class HelpCommand extends Command {
 				`, { split: true })); */
 				
 				const helpbed = new Discord.RichEmbed()
-				.setColor('RANDOM')
-				.setDescription(groups.map(grp=> grp.commands.map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')));
+				.setColor('RANDOM');
+				groups.map(grp => {
+					grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description))
+				})
+				//.setDescription(groups.map(grp=> grp.commands.map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')));
 				//groups.map(grp=> helpbed.addField(grp.name,grp.commands.map(cmd=>"`"+cmd.name+"` : "+cmd.description).join('\n')));
 				//groups.map(grp=> grp.commands.map(cmd => helpbed.addField(cmd.name, cmd.description).join('\n')));
 				
