@@ -93,6 +93,7 @@ module.exports = class HelpCommand extends Command {
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
 				.setTitle('Tüm komutlar')
+				.addBlankField()
 				.setFooter('© ' + (new Date()).getFullYear() + ' Sohbet ve Oyun', this.client.user.avatarURL);
 				
 				groups.forEach(group =>
