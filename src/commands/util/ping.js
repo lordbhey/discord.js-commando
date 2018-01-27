@@ -18,17 +18,23 @@ module.exports = class PingCommand extends Command {
 	async run(msg) {
 		if(!msg.editable) {
 			const pingMsg = await msg.reply('Hesaplanıyor...');
-			return pingMsg.edit(oneLine`
+			const embed = new Discord.RichEmbed()
+			.setColor('RANDOM')
+			.setDescription(oneLine`
 				${msg.channel.type !== 'dm' ? `${msg.author},` : ''}
 				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
 			`);
+			return pingMsg.edit({ embed });
 		} else {
 			await msg.edit('Hesaplanıyor...');
-			return msg.edit(oneLine`
+			const embed = new Discord.RichEmbed()
+			.setColor('RANDOM')
+			.setDescription(oneLine`
 				:ping_pong: Mesaj gecikmesi: ${msg.editedTimestamp - msg.createdTimestamp - 100}ms.
 				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping - 100)}ms.` : ''}
 			`);
+			return msg.edit({ embed });
 		}
 	}
 };
