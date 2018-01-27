@@ -27,8 +27,10 @@ module.exports = class ListGroupsCommand extends Command {
 			${this.client.registry.groups.map(grp =>
 				`**${grp.name}:** ${grp.isEnabledIn(msg.guild) ? 'Devrede' : 'Devre dışı'}`
 			).join('\n')}
-		`);
+		`)
+		.setFooter(`${msg.author.tag} tarafından istendi`, this.client.user.avatarURL)
+		.setTimestamp();
 		
-		return msg.channel.send(msg.author, {embed});
+		return msg.channel.send({embed});
 	}
 };
