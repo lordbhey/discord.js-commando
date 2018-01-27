@@ -102,7 +102,7 @@ module.exports = class HelpCommand extends Command {
                             				.map(command => `**${command.name}**: ${command.description}`)
                             					.join('\n')));
 	
-				messages.push(await msg.direct({embed: helpbed}));
+				messages.push(await msg.author.send({embed: helpbed}));
 				
 				if(msg.channel.type !== 'dm') {
 					const dmbed = new Discord.RichEmbed()
