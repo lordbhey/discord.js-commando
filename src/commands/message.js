@@ -216,7 +216,7 @@ class CommandMessage {
 				const invite = this.client.options.invite;
 				return this.reply(stripIndents`
 					Komutu kullanırken bir hata oluştu!: \`${err.name}: ${err.message}\`
-					Lütfen bildirin: ${ownerList}${invite ? ` in this server: ${invite}` : '.'}
+					Lütfen bildirin: https://discord.gg/GvfuXmE
 				`);
 			}
 		}
