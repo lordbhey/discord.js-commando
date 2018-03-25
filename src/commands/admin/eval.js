@@ -33,6 +33,7 @@ module.exports = class EvalCommand extends Command {
 	}
 
 	async run(msg, args) {
+		if (args.script.includes("token")) return msg.reply('bak şu an gördün mü tokeni?')
 		// Make a bunch of helpers
 		/* eslint-disable no-unused-vars */
 		const message = msg;
