@@ -22,7 +22,7 @@ module.exports = class PingCommand extends Command {
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
 			.setDescription(oneLine`
-				:ping_pong: Mesaj gecikmesi: ${(pingMsg.editedTimestamp - msg.createdTimestamp) / 100}s.
+				:ping_pong: Mesaj gecikmesi: ${(pingMsg.createdTimestamp - msg.createdTimestamp) / 100}s.
 				${this.client.ping ? `Normal gecikme: ${this.client.ping / 100}s.` : ''}
 			`);
 			
