@@ -22,8 +22,8 @@ module.exports = class PingCommand extends Command {
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
 			.setDescription(oneLine`
-				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp}ms.
-				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping)}ms.` : ''}
+				:ping_pong: Mesaj gecikmesi: ${pingMsg.createdTimestamp - msg.createdTimestamp / 100}s.
+				${this.client.ping ? `Normal gecikme: ${this.client.ping / 100}s.` : ''}
 			`);
 			
 			return pingMsg.edit(msg.channel.type !== 'dm' ? `${msg.author},` : '', { embed });
@@ -32,8 +32,8 @@ module.exports = class PingCommand extends Command {
 			const embed = new Discord.RichEmbed()
 			.setColor('RANDOM')
 			.setDescription(oneLine`
-				:ping_pong: Mesaj gecikmesi: ${msg.editedTimestamp - msg.createdTimestamp}ms.
-				${this.client.ping ? `Normal gecikme: ${Math.round(this.client.ping)}ms.` : ''}
+				:ping_pong: Mesaj gecikmesi: ${msg.editedTimestamp - msg.createdTimestamp / 100}s.
+				${this.client.ping ? `Normal gecikme: ${this.client.ping / 100}s.` : ''}
 			`);
 			
 			return msg.edit({ embed });
