@@ -246,7 +246,9 @@ class CommandRegistry {
 	 */
 	registerDefaultGroups() {
 		return this.registerGroups([
-			['util', 'Genel']
+			['util', 'Genel'],
+			['admin', 'Geliştirici Komutları'],
+			['ayarlar', 'Ayarlar'],
 		]);
 	}
 
