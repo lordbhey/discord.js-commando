@@ -92,14 +92,14 @@ module.exports = class HelpCommand extends Command {
 				
 				const helpbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
-				.setTitle('Tüm komutlar')
+				.setTitle('Komut Listesi')
 				.addBlankField()
 				.setFooter('© ' + (new Date()).getFullYear() + ' Kahve', this.client.user.avatarURL);
 				
 				groups.forEach(group =>
                     			helpbed.addField(`**${group.name}**`,
                         			group.commands
-                            				.map(command => `**${command.name}**: ${command.description}`)
+                            				.map(command => `[${command.name}](https://a) ${command.description}`)
                             					.join('\n')));
 	
 				messages.push(await msg.author.send({embed: helpbed}));
@@ -107,15 +107,15 @@ module.exports = class HelpCommand extends Command {
 				if(msg.channel.type !== 'dm') {
 					const dmbed = new Discord.RichEmbed()
 					.setColor('RANDOM')
-					.setTitle('Özel mesajlarını kontrol et.')
-					.setDescription('Komutları özel mesaj olarak yolladım.');
+					.setTitle('Özel mesajlarını kontrol et!')
+					.setDescription('> Komutları özel mesaj olarak yolladım.');
 
 					messages.push(await msg.channel.send({embed: dmbed}));
 				}
 			} catch(err) {
 				const errbed = new Discord.RichEmbed()
 				.setColor('RANDOM')
-				.setTitle('Hata')
+				.setTitle('Hata!')
 				.setDescription('Komutları özel mesaj olarak sana gönderemiyorum. Sanırım özel mesajların kapalı.');
 
 				messages.push(await msg.channel.send({embed: errbed}));
