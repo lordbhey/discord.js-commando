@@ -2,7 +2,7 @@ const { stripIndents, oneLine } = require('common-tags');
 const Command = require('../base');
 const disambiguation = require('../../util').disambiguation;
 const Discord = require('discord.js');
-
+// şöyle yapayımda adın çıksın ak
 module.exports = class HelpCommand extends Command {
 	constructor(client) {
 		super(client, {
