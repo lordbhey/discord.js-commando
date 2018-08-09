@@ -99,7 +99,7 @@ module.exports = class HelpCommand extends Command {
 				groups.forEach(group =>
                     			helpbed.addField(`**${group.name}**`,
                         			group.commands
-                            				.map(command => `[${command.name}](https://a) ${command.description}`)
+                            				.map(command => `\`${command.name}\` - ${command.description}`)
                             					.join('\n')));
 	
 				messages.push(await msg.author.send({embed: helpbed}));
