@@ -22,13 +22,13 @@ module.exports = class HelpCommand extends Command {
 					key: 'command',
 					prompt: 'Hangi komut hakkında yardım istiyorsun?',
 					type: 'string',
-					default: 'hepsi'
+					default: ''
 				}
 			]
 		});
 	}
 
-	async run(msg, args) {
+	async oldrun(msg, args) {
 		const groups = this.client.registry.groups;
 		const commands = this.client.registry.findCommands(args.command, false, msg);
 		const showAll = args.command && args.command.toLowerCase() === 'hepsi';
@@ -122,5 +122,28 @@ module.exports = class HelpCommand extends Command {
 			}
 			return messages;
 		}
+	}
+
+	async run(msg, args) {
+		let group;
+        var groups = this.client.registry.groups.map(g => g.id);
+        const emb = new Discord.RichEmbed()
+        .setTitle("Komut Grupları")
+        .setDescription(client.registry.groups.map(c=> `• ${c.id} => ${c.name}`))
+        .setColor(0xf4a460)
+        .setFooter(`Örnek Kullanım: k!yardım kahve`)
+        if (!args.command) return msg.embed(emb);
+
+        if (!groups.some(g => args.command == g)) return msg.channel.send(`${msg.member.toString()}, lütfen doğru komut grubundan yardım alınız.`, {embed: emb})
+        if (this.client.registry.groups.has(args.command)) group = this.client.registry.groups.get(args.command);
+
+
+        const helpbed = new Discord.RichEmbed()
+        .setTitle(group.name)
+        .setDescription(`
+        ${group.commands.map(g => `[${g.name}](https://kahvebot.com): ${g.description}`).join("\n")}
+                `)
+        .setColor(0xf4a460)
+        msg.embed(helpbed)
 	}
 };
